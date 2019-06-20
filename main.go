@@ -5,6 +5,7 @@ import (
 	"github.com/line/line-bot-sdk-go/linebot"
 	"log"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -49,7 +50,7 @@ func main() {
 	})
 	// This is just sample code.
 	// For actual use, you must support HTTPS by using `ListenAndServeTLS`, a reverse proxy or something else.
-	if err := http.ListenAndServe(":8090", nil); err != nil {
+	if err := http.ListenAndServe(os.Getenv("PORT"), nil); err != nil {
 		log.Fatal(err)
 	}
 }
