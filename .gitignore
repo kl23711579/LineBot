@@ -1,3 +1,6 @@
 .idea
 linebot1v2
 .DS_Store
+
+# environment variable
+.env

@@ -2,18 +2,21 @@ package main
 
 import (
 	"fmt"
-	"github.com/line/line-bot-sdk-go/linebot"
+	"github.com/joho/godotenv"
 	"log"
 	"net/http"
 	"os"
 	"time"
+
+	"github.com/line/line-bot-sdk-go/linebot"
 )
 
 func main() {
+	godotenv.Load()
 
-	channelSecret := "cc8b2d517c550675def314b00543a098"
-	channelToken := "nyKC/WBqxvVrx15ftpm7+GGSlaRY1BQjDh/vV712PL3iAvJ0UCyqE3Nz5MIhuaymAvB+DP8v17IDzAlaUNYJ5CpOTa8ByRlYVtYS5Sxusd2EUvuPSYo7zvndX09RTSKPLqmLYtl91X7JT7cLqRC2YAdB04t89/1O/w1cDnyilFU="
-	userId := "U2ccabf42f930672b3187c9e21e3cb52a"
+	channelSecret := os.Getenv("CHANNEL_SECRET")
+	channelToken := os.Getenv("CHANNEL_TOKEN")
+	userId := os.Getenv("USER_ID")
 
 	bot, err := linebot.New(
 		channelSecret,
