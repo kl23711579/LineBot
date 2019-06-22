@@ -1,0 +1,7 @@
+FROM scratch
+
+FROM centurylink/ca-certs
+#COPY --from=build-env /main /
+ADD main /
+EXPOSE 8090
+ENTRYPOINT ["/main"]
