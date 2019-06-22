@@ -61,8 +61,14 @@ func main() {
 func Weather(userId string, bot *linebot.Client) {
 	fiveMTick := time.Tick(5 * time.Minute)
 
+	local, err := time.LoadLocation("Australia/Brisbane")
+	if err != nil {
+		fmt.Println(err)
+	}
+
 	for t := range fiveMTick {
-		hour, minute, _ := t.Clock()
+		tLocal := t.In(local)
+		hour, minute, _ := tLocal.Clock()
 		if hour == 7 && minute >= 0 && minute <= 5 {
 			weatherDetail := GetData()
 			fmt.Println(weatherDetail)
@@ -79,10 +85,16 @@ func Weather(userId string, bot *linebot.Client) {
 func Rubbish(userId string, bot *linebot.Client) {
 	hourTick := time.Tick(time.Hour)
 
+	local, err := time.LoadLocation("Australia/Brisbane")  //set time zone of brisbane
+	if err != nil {
+		fmt.Println(err)
+	}
+
 	for t := range hourTick {
-		weekDay := t.Weekday()
+		tLocal := t.In(local)  // change to Brisbane time
+		weekDay := tLocal.Weekday()
 		fmt.Println(weekDay)
-		hour := t.Hour()
+		hour := tLocal.Hour()
 		if int(weekDay) == 1 && hour >= 7 && hour < 8{
 			if _, err := bot.PushMessage(userId, linebot.NewTextMessage("Take out rubbish.")).Do(); err != nil {
 				fmt.Println("Rubbish err   ", err)
