@@ -4,4 +4,8 @@ FROM centurylink/ca-certs
 #COPY --from=build-env /main /
 ADD main /
 EXPOSE 8090
+
+# COPY time file
+COPY zoneinfo.zip /usr/local/go/lib/time/
+
 ENTRYPOINT ["/main"]
